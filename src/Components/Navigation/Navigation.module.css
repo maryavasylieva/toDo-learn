@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(78, 63, 114);
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  padding: 20px;
+  font-size: 20px;
+  color: #b3a4d6;
+  text-transform: uppercase;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.active {
+  color: rgb(115, 130, 216);
+}
