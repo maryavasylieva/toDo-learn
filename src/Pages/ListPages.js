@@ -1,11 +1,19 @@
 import React from 'react';
 import TodoList from '../Components/TodoList/TodoList';
+import styled from 'styled-components';
+import style from '../Components/TodoList/TodoList.module.css';
+
+const Container = styled.div`
+  margin: 0 auto;
+  width: 1200px;
+  /* background-color: beige; */
+`;
 
 const ListPages = () => (
-  <div>
-    <h2>List</h2>
+  <Container>
+    <h2 className={style.titleList}>List</h2>
     <TodoList />
-  </div>
+  </Container>
 );
 
 export default ListPages;

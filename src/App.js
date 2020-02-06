@@ -1,30 +1,16 @@
-import React, { lazy, Suspense } from 'react';
-import Navigation from './Components/Navigation/Navigation';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import 'antd/dist/antd.css';
-import { Layout, Breadcrumb } from 'antd';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './Redux/store';
+import Root from './Components/Root/Root';
 
-const { Content, Footer } = Layout;
+const App = () => (
+  <Provider store={store}>
+    <Root />
+  </Provider>
+);
 
-const AsyncHome = lazy(() => import('./Pages/Home'));
-// // const AsyncAbout = lazy(() => import('./Pages/About'));
-const AsyncList = lazy(() => import('./Pages/ListPages'));
+export default App;
 
-function App() {
-  return (
-    <div className='App'>
-      <Navigation></Navigation>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route exact path='/' component={AsyncHome} />
-          {/* <Route path='/about' component={AsyncAbout} /> */}
-          <Route path='/list' component={AsyncList} />
-          <Redirect to='/' />
-        </Switch>
-      </Suspense>
-    </div>
-  );
-}
 
 // const App = () => (
 //   <Layout className='layout'>
@@ -48,4 +34,4 @@ function App() {
 //   </Layout>
 // );
 
-export default App;
+// export default App;

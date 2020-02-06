@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap');
+
+.titleList {
+  margin-top: 50px;
+  font-family: 'Quicksand', sans-serif;
+  color: rgb(80, 56, 138);
+  font-size: 35px;
+  text-align: center;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* .button {
+  background-color: rgb(80, 56, 138);
+  border: none;
+}
+
+.button:hover {
+  background-color: rgb(158, 134, 214);
+} */
+
+.buttonActions {
+  border: none;
+  background-color: transparent;
+}

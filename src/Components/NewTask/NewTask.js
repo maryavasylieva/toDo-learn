@@ -1,43 +1,79 @@
-import React, { Component } from 'react';
-import 'antd/dist/antd.css';
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import React, { Component } from "react";
+import "antd/dist/antd.css";
+import { Button, Modal, Form, Input, Select } from "antd";
+// import style from "../TodoList/TodoList.module.css";
+import styled from "styled-components";
 
-export const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+const AddBTN = styled(Button)`
+  background-color: rgb(80, 56, 138);
+  border: none;
+  &:hover {
+    background-color: rgb(158, 134, 214);
+  }
+`;
+
+const { Option, OptGroup } = Select;
+
+export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
   // eslint-disable-next-line
   class extends Component {
+    state = { priority: "low" };
+
+    // onChange = e => {
+    //   const { name, value } = e.target;
+
+    //   this.setState({ [name]: value });
+    // };
+    onChange = value => {
+      console.log("radio checked", value);
+      this.setState({
+        value: value
+      });
+    };
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
+      const { priority } = this.state;
       const { getFieldDecorator } = form;
       return (
         <Modal
           visible={visible}
-          title='Create a new collection'
-          okText='Create'
+          title="Create a new task"
+          okText="Create"
           onCancel={onCancel}
           onOk={onCreate}
         >
-          <Form layout='vertical'>
-            <Form.Item label='Title'>
-              {getFieldDecorator('title', {
+          <Form layout="vertical">
+            <Form.Item label="Title">
+              {getFieldDecorator("title", {
                 rules: [
                   {
                     required: true,
-                    message: 'Please input the title of collection!',
-                  },
-                ],
+                    message: "Please input the title of your task!"
+                  }
+                ]
               })(<Input />)}
             </Form.Item>
-            <Form.Item label='Description'>
-              {getFieldDecorator('description')(<Input type='textarea' />)}
+            <Form.Item label="Description">
+              {getFieldDecorator("description")(<Input type="textarea" />)}
             </Form.Item>
-            <Form.Item className='collection-create-form_last-form-item'>
-              {getFieldDecorator('modifier', {
-                initialValue: 'public',
+            <Form.Item label="Content">
+              {getFieldDecorator("content")(<Input type="textarea" />)}
+            </Form.Item>
+            <Form.Item className="collection-create-form_last-form-item">
+              {getFieldDecorator("priority", {
+                initialValue: "priority"
               })(
-                <Radio.Group>
-                  <Radio value='public'>Public</Radio>
-                  <Radio value='private'>Private</Radio>
-                </Radio.Group>
+                <Select
+                  name="priority"
+                  value={priority}
+                  onChange={this.onChange}
+                >
+                  <OptGroup label="Priority">
+                    <Option value="Low">Low</Option>
+                    <Option value="Medium">Medium</Option>
+                    <Option value="High">High</Option>
+                  </OptGroup>
+                </Select>
               )}
             </Form.Item>
           </Form>
@@ -49,7 +85,7 @@ export const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
 
 class NewTask extends Component {
   state = {
-    visible: false,
+    visible: false
   };
 
   showModal = () => {
@@ -67,7 +103,7 @@ class NewTask extends Component {
         return;
       }
 
-      console.log('Received values of form: ', values);
+      console.log("Received values of form: ", values);
       form.resetFields();
       this.props.addTask(values);
       this.setState({ visible: false });
@@ -81,9 +117,9 @@ class NewTask extends Component {
   render() {
     return (
       <div>
-        <Button type='primary' onClick={this.showModal}>
+        <AddBTN type="primary" onClick={this.showModal}>
           Add Task
-        </Button>
+        </AddBTN>
         <CollectionCreateForm
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
