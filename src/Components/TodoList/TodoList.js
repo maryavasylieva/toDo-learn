@@ -39,7 +39,7 @@ class TodoList extends Component {
 
   handlePriorityChange = (id, priority) => {
     this.setState(state => ({
-      tasks: state.taks.map(task => {
+      tasks: state.tasks.map(task => {
         return task.id === id ? { ...task, priority } : task;
       })
     }));

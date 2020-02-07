@@ -11,12 +11,15 @@ class ListItem extends Component {
     content: this.props.content,
     priority: this.props.priority
   };
+  // солнышко большая беда, видимо с пропсами у меня большая проблема
+  // я так и не поняла куда их надо ставить, я сетю isOpen, как я поняла в этом хэндлере? ведь так? или я опять что то не понимаю...😢😥
+  // а еще глянь EditForm правильно ли я воспользавалась хоком
 
-  handleEditForm = () => this.setState({ isOpen: true });
+  handleEditForm = () => this.setState({ isOpen: true});
 
   render() {
     const { isOpen, title, description, priority, id, content } = this.state;
-
+    console.log(this.state);
     const { handleEditTask } = this.props;
     return (
       <div>
