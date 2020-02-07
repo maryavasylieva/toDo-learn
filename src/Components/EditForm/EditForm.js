@@ -20,7 +20,7 @@ class EditForm extends Component {
   render() {
     const { title, description, content, formLayout } = this.state;
     const { getFieldDecorator } = this.props.form;
-    console.log(this.state);
+    // console.log(this.state);
     const formItemLayout =
       formLayout === "horizontal"
         ? {
@@ -38,7 +38,7 @@ class EditForm extends Component {
     return (
       <div>
         <Form layout={formLayout} onSubmit={this.handleSubmit}>
-          <Form.Item label="Title">
+          {/* <Form.Item label="Title">
             {getFieldDecorator("title", {
               rules: [
                 {
@@ -47,7 +47,7 @@ class EditForm extends Component {
                 }
               ]
             })(<Input />)}
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item label="Title" {...formItemLayout}>
             <Input placeholder="input placeholder" />
