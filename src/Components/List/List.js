@@ -8,12 +8,12 @@ import style from "../TodoList/TodoList.module.css";
 const icons = ["delete", "edit", "like-o"];
 const { Option, OptGroup } = Select;
 
-const Lists = ({ tasks, handleDeleteTask, handleEditTask, handlePriorityChange }) => {
+const Lists = ({ tasks, handleDeleteTask, handleEditForm, handlePriorityChange }) => {
   const deleteFunc = id => {
     handleDeleteTask(id);
   };
   const editFunc = id => {
-    handleEditTask(id);
+    handleEditForm(id);
   };
   const likeFunc = id => console.log("likeId", id);
   // const bla = () => console.log("kek");
@@ -82,7 +82,7 @@ const Lists = ({ tasks, handleDeleteTask, handleEditTask, handlePriorityChange }
               <Select
                 name="priority"
                 value={tasks.priority}
-                onChange={e => handlePriorityChange(tasks.id, e.target.value)}
+                onChange={e => handlePriorityChange(tasks.id)}
               >
                 <OptGroup label="Priority">
                   <Option value="Low">Low</Option>

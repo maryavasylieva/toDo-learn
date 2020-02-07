@@ -17,8 +17,6 @@ const { Option, OptGroup } = Select;
 export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
   // eslint-disable-next-line
   class extends Component {
-    state = { priority: "low" };
-
     // onChange = e => {
     //   const { name, value } = e.target;
 
@@ -32,8 +30,7 @@ export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
     };
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
-      const { priority } = this.state;
-      const { getFieldDecorator } = form;
+      const { getFieldDecorator} = form;
       return (
         <Modal
           visible={visible}
@@ -61,11 +58,10 @@ export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
             </Form.Item>
             <Form.Item className="collection-create-form_last-form-item">
               {getFieldDecorator("priority", {
-                initialValue: "priority"
+                setFieldsValue: "priority"
               })(
                 <Select
                   name="priority"
-                  value={priority}
                   onChange={this.onChange}
                 >
                   <OptGroup label="Priority">

@@ -8,18 +8,18 @@ const shortid = require("short-id");
 class TodoList extends Component {
   state = { tasks: [], query: "" };
 
-  // componentDidMount() {
-  //   if (localStorage.getItem("tasks")) {
-  //     this.setState({ tasks: JSON.parse(localStorage.getItem("tasks")) });
-  //   }
-  // }
+  componentDidMount() {
+    if (localStorage.getItem("tasks")) {
+      this.setState({ tasks: JSON.parse(localStorage.getItem("tasks")) });
+    }
+  }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { tasks } = this.state;
-  //   if (prevState.tasks !== tasks) {
-  //     localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+    if (prevState.tasks !== tasks) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }
 
   handleAddTask = task => {
     const newTask = {
@@ -46,12 +46,14 @@ class TodoList extends Component {
   };
 
   handleEditTask = (id, updatedTask) => {
+    console.log("updatedTask:", updatedTask)
     this.setState(state => ({
       tasks: state.tasks.map(task => {
         return task.id === id ? { ...task, ...updatedTask } : task;
-      })
+      }),
     }));
   };
+
 
   render() {
     const { tasks } = this.state;

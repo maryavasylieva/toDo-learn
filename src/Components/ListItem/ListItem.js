@@ -1,15 +1,23 @@
-import React, { Component } from 'react';
-import Lists from '../List/List';
-import EditForm from '../EditForm/EditForm';
+import React, { Component } from "react";
+import Lists from "../List/List";
+import EditForm from "../EditForm/EditForm";
 
 class ListItem extends Component {
-  state = { isOpen: false };
+  state = {
+    isOpen: false,
+    id: this.props.id,
+    title: this.props.title,
+    description: this.props.description,
+    content: this.props.content,
+    priority: this.props.priority
+  };
 
   handleEditForm = () => this.setState({ isOpen: true });
 
   render() {
-    const { isOpen } = this.state;
-    const { id, title, description, content, priority, handleEditTask } = this.props;
+    const { isOpen, title, description, priority, id, content } = this.state;
+    console.log('this.state:', this.state)
+    const { handleEditTask } = this.props;
     return (
       <div>
         {isOpen ? (

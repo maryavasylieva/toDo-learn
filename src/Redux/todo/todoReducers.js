@@ -5,7 +5,8 @@ const tasks = (state = [], { type, payload }) => {
   switch (type) {
     case Action_Types.GET_TASKS_SUCCESS:
       return payload.tasks === null ? [] : payload.tasks;
-    case Action_Types.ADD_TASKS_SUCCESS:
+    case Action_Types.ADD_TASK_SUCCESS:
+      return payload.task
     case Action_Types.DELETE_TASK_SUCCESS:
       return state.map(el =>
         el.id === payload.task.id ? { ...el, tasks: payload.task.tasks } : el

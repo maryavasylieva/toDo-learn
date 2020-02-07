@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
-import 'antd/dist/antd.css';
-import { Form, Input, Button } from 'antd';
+import React, { Component } from "react";
+import "antd/dist/antd.css";
+import { Form, Input, Button } from "antd";
 
 class EditForm extends Component {
   state = {
     title: this.props.title,
     description: this.props.description,
     content: this.props.content,
-    formLayout: 'horizontal',
+    formLayout: "horizontal"
   };
 
-  handleChange = e =>
-    this.setState(
-      { [e.target.name]: e.target.value },
-      { formLayout: 'horizontal' }
-    );
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleSubmit = e => {
     e.preventDefault();
@@ -23,46 +19,47 @@ class EditForm extends Component {
 
   render() {
     const { title, description, content, formLayout } = this.state;
+    const { getFieldDecorator } = this.props.form;
+    console.log(this.state);
     const formItemLayout =
-      formLayout === 'horizontal'
+      formLayout === "horizontal"
         ? {
             labelCol: { span: 4 },
-            wrapperCol: { span: 14 },
+            wrapperCol: { span: 14 }
           }
         : null;
 
     const buttonItemLayout =
-      formLayout === 'horizontal'
+      formLayout === "horizontal"
         ? {
-            wrapperCol: { span: 14, offset: 4 },
+            wrapperCol: { span: 14, offset: 4 }
           }
         : null;
     return (
       <div>
-        <Form layout={formLayout} handleSubmit={this.handleSubmit}>
-          <Form.Item label='Title' {...formItemLayout}>
-            <Input
-              placeholder='input placeholder'
-              onChange={this.handleChange}
-            />
-            {title}
+        <Form layout={formLayout} onSubmit={this.handleSubmit}>
+          <Form.Item label="Title">
+            {getFieldDecorator("title", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please input the title of your task!"
+                }
+              ]
+            })(<Input />)}
           </Form.Item>
-          <Form.Item label='Description' {...formItemLayout}>
-            <Input
-              placeholder='input placeholder'
-              onChange={this.handleChange}
-            />
-            {description}
+
+          <Form.Item label="Title" {...formItemLayout}>
+            <Input placeholder="input placeholder" />
           </Form.Item>
-          <Form.Item label='Content' {...formItemLayout}>
-            <Input
-              placeholder='input placeholder'
-              onChange={this.handleChange}
-            />
-            {content}
+          <Form.Item label="Description" {...formItemLayout}>
+            <Input placeholder="input placeholder" />
+          </Form.Item>
+          <Form.Item label="Content" {...formItemLayout}>
+            <Input placeholder="input placeholder" />
           </Form.Item>
           <Form.Item {...buttonItemLayout}>
-            <Button type='primary'>Submit</Button>
+            <Button type="primary">Submit</Button>
           </Form.Item>
         </Form>
       </div>
