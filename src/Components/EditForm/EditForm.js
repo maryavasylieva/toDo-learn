@@ -55,6 +55,17 @@ class EditForm extends Component {
             })(<Input />)}
           </Form.Item>
 
+          <Form.Item label="Description">
+            {getFieldDecorator("title", {
+              rules: [
+                {
+                  required: true,
+                  message: "Please input the title of your task!"
+                }
+              ]
+            })(<Input />)}
+          </Form.Item>
+
           <Form.Item label="Title" {...formItemLayout}>
             <Input placeholder="input placeholder" />
           </Form.Item>
