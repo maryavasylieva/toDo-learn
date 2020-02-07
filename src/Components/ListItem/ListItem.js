@@ -16,7 +16,7 @@ class ListItem extends Component {
 
   render() {
     const { isOpen, title, description, priority, id, content } = this.state;
-    console.log('this.state:', this.state)
+
     const { handleEditTask } = this.props;
     return (
       <div>

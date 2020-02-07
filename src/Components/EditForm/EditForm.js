@@ -19,8 +19,13 @@ class EditForm extends Component {
 
   render() {
     const { title, description, content, formLayout } = this.state;
+
+    // не пойму почему не находит этот пропс, ведь он из antdsgn😓😥
+    // может из за этого не могу запихнуть в эдит исходную таску?🤔
+    //солнышко, глянь ListItem. Правильно ли я тебя поняла.
+    // спасибо, люблю тебя😘
     const { getFieldDecorator } = this.props.form;
-    // console.log(this.state);
+
     const formItemLayout =
       formLayout === "horizontal"
         ? {
@@ -38,7 +43,8 @@ class EditForm extends Component {
     return (
       <div>
         <Form layout={formLayout} onSubmit={this.handleSubmit}>
-          {/* <Form.Item label="Title">
+          {/* тестовый input */}
+          <Form.Item label="Title">
             {getFieldDecorator("title", {
               rules: [
                 {
@@ -47,7 +53,7 @@ class EditForm extends Component {
                 }
               ]
             })(<Input />)}
-          </Form.Item> */}
+          </Form.Item>
 
           <Form.Item label="Title" {...formItemLayout}>
             <Input placeholder="input placeholder" />
