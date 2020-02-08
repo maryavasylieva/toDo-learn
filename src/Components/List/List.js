@@ -11,14 +11,14 @@ const { Option, OptGroup } = Select;
 const Lists = ({
   tasks,
   handleDeleteTask,
-  handleEditForm,
+  handleEditTask,
   handlePriorityChange
 }) => {
   const deleteFunc = id => {
     handleDeleteTask(id);
   };
-  const editFunc = id => {
-    handleEditForm(id);
+  const editFunc = task => {
+    handleEditTask(task);
   };
   const likeFunc = id => console.log("likeId", id);
   // const bla = () => console.log("kek");

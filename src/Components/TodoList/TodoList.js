@@ -51,7 +51,7 @@ class TodoList extends Component {
     console.log("updatedTask:", updatedTask);
     this.setState(state => ({
       tasks: state.tasks.find(task => {
-        console.log("task:", task)
+        console.log("task in func:", task)
         return task.id === id ? { ...task, ...updatedTask } : task;
       })
     }));
