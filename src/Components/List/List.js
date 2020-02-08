@@ -8,7 +8,12 @@ import style from "../TodoList/TodoList.module.css";
 const icons = ["delete", "edit", "like-o"];
 const { Option, OptGroup } = Select;
 
-const Lists = ({ tasks, handleDeleteTask, handleEditForm, handlePriorityChange }) => {
+const Lists = ({
+  tasks,
+  handleDeleteTask,
+  handleEditForm,
+  handlePriorityChange
+}) => {
   const deleteFunc = id => {
     handleDeleteTask(id);
   };
@@ -56,11 +61,11 @@ const Lists = ({ tasks, handleDeleteTask, handleEditForm, handlePriorityChange }
         pageSize: 3
       }}
       dataSource={tasks}
-      renderItem={tasks => (
+      renderItem={task => (
         <>
           <List.Item
-            key={tasks.title}
-            actions={renderIcons(tasks.id)}
+            key={task.title}
+            actions={renderIcons(task.id)}
             extra={
               <img
                 width={272}
@@ -71,18 +76,18 @@ const Lists = ({ tasks, handleDeleteTask, handleEditForm, handlePriorityChange }
           >
             <List.Item.Meta
               // avatar={<Avatar src={i.avatar} />}
-              title={tasks.title}
-              description={tasks.description}
+              title={task.title}
+              description={task.description}
             />
-            {tasks.content}
+            {task.content}
           </List.Item>
           <List.Item>
             <label>
               Priority:
               <Select
                 name="priority"
-                value={tasks.priority}
-                onChange={e => handlePriorityChange(tasks.id)}
+                value={task.priority}
+                onChange={e => handlePriorityChange(task.id)}
               >
                 <OptGroup label="Priority">
                   <Option value="Low">Low</Option>

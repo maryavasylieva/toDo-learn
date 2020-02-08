@@ -20,6 +20,7 @@ const EditFormComponent = Form.create({ name: "edit_form" })(
         onChange,
         onSubmit
       } = this.state;
+      console.log("this.state edit:", this.state);
       const { getFieldDecorator } = this.props.form;
       const formItemLayout =
         formLayout === "horizontal"
@@ -44,10 +45,14 @@ const EditFormComponent = Form.create({ name: "edit_form" })(
               })(<Input placeholder="input placeholder" onChange={onChange} />)}
             </Form.Item>
             <Form.Item label="Description" {...formItemLayout}>
-              <Input placeholder="input placeholder" onChange={onChange} />
+              {getFieldDecorator("description", {
+                setFieldsValue: description
+              })(<Input placeholder="input placeholder" onChange={onChange} />)}
             </Form.Item>
             <Form.Item label="Content" {...formItemLayout}>
-              <Input placeholder="input placeholder" onChange={onChange} />
+              {getFieldDecorator("content", {
+                setFieldsValue: content
+              })(<Input placeholder="input placeholder" onChange={onChange} />)}
             </Form.Item>
             <Form.Item {...buttonItemLayout}>
               <Button type="primary">Submit</Button>
@@ -69,7 +74,7 @@ class EditForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.handleEditTask(this.props.id, { ...this.state })
+    this.props.handleEditTask(this.props.id, { ...this.state });
   };
 
   render() {

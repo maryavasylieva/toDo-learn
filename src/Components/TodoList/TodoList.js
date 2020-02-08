@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import NewTask from "../NewTask/NewTask";
 import ListItem from "../ListItem/ListItem";
 
-
 const shortid = require("short-id");
 
 class TodoList extends Component {
@@ -22,6 +21,7 @@ class TodoList extends Component {
   }
 
   handleAddTask = task => {
+    console.log("task:", task)
     const newTask = {
       id: shortid.generate(),
       date: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
@@ -32,6 +32,7 @@ class TodoList extends Component {
   };
 
   handleDeleteTask = id => {
+    console.log("id:", id)
     this.setState(state => ({
       tasks: state.tasks.filter(task => task.id !== id)
     }));
@@ -46,14 +47,15 @@ class TodoList extends Component {
   };
 
   handleEditTask = (id, updatedTask) => {
-    console.log("updatedTask:", updatedTask)
+    console.log("id:", id)
+    console.log("updatedTask:", updatedTask);
     this.setState(state => ({
-      tasks: state.tasks.map(task => {
+      tasks: state.tasks.find(task => {
+        console.log("task:", task)
         return task.id === id ? { ...task, ...updatedTask } : task;
-      }),
+      })
     }));
   };
-
 
   render() {
     const { tasks } = this.state;
