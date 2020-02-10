@@ -8,25 +8,30 @@ class ListItem extends Component {
     task: {}
   };
 
+  handleCloseEdit = () => this.setState({ isOpen: false });
+
   handleEditForm = task => {
-    console.log("task is here:", task);
     this.setState({ isOpen: true, task });
   };
 
   render() {
-    const { isOpen } = this.state;
-    console.log("this.state:", this.state);
+    const { isOpen, task } = this.state;
     const { handleEditTask } = this.props;
-    console.log("this.props:", this.props);
+
     return (
       <div>
         {isOpen ? (
-          <EditForm handleEditTask={handleEditTask} />
+          <EditForm
+            task={task}
+            handleEditTask={handleEditTask}
+            handleCloseEdit={this.handleCloseEdit}
+          />
         ) : (
           <Lists
             {...this.props}
             {...this.state}
             handleEditForm={this.handleEditForm}
+
           />
         )}
       </div>

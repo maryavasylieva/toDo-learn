@@ -21,7 +21,7 @@ class TodoList extends Component {
   }
 
   handleAddTask = task => {
-    console.log("task:", task)
+    console.log("task:", task);
     const newTask = {
       id: shortid.generate(),
       date: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
@@ -32,27 +32,24 @@ class TodoList extends Component {
   };
 
   handleDeleteTask = id => {
-    console.log("id:", id)
     this.setState(state => ({
       tasks: state.tasks.filter(task => task.id !== id)
     }));
   };
 
-  handlePriorityChange = (id, priority) => {
+  handlePriorityChange = priority => {
+    console.log("priority:", priority);
     this.setState(state => ({
       tasks: state.tasks.map(task => {
-        return task.id === id ? { ...task, priority } : task;
+        return task.id === priority.id ? { ...task, priority } : task;
       })
     }));
   };
 
-  handleEditTask = (id, updatedTask) => {
-    console.log("id:", id)
-    console.log("updatedTask:", updatedTask);
+  handleEditTask = updatedTask => {
     this.setState(state => ({
-      tasks: state.tasks.find(task => {
-        console.log("task in func:", task)
-        return task.id === id ? { ...task, ...updatedTask } : task;
+      tasks: state.tasks.map(task => {
+        return task.id === updatedTask.id ? { ...task, ...updatedTask } : task;
       })
     }));
   };

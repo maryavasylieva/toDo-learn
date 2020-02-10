@@ -5,22 +5,15 @@ import { Form, Input, Button } from "antd";
 const EditFormComponent = Form.create({ name: "edit_form" })(
   class extends Component {
     state = {
-      title: this.props.title,
-      description: this.props.description,
-      content: this.props.content,
+      title: this.props.task.title,
+      description: this.props.task.description,
+      content: this.props.task.content,
       formLayout: "horizontal"
     };
 
     render() {
-      const {
-        title,
-        description,
-        content,
-        formLayout,
-        onChange,
-        onSubmit
-      } = this.state;
-      console.log("this.state edit:", this.state);
+      const { title, description, content, formLayout } = this.state;
+      const { onChange, onSubmit, onClick } = this.props;
       const { getFieldDecorator } = this.props.form;
       const formItemLayout =
         formLayout === "horizontal"
@@ -41,21 +34,51 @@ const EditFormComponent = Form.create({ name: "edit_form" })(
           <Form layout={formLayout} onSubmit={onSubmit}>
             <Form.Item label="Title" {...formItemLayout}>
               {getFieldDecorator("title", {
-                setFieldsValue: title
-              })(<Input placeholder="input placeholder" onChange={onChange} />)}
+                initialValue: title
+              })(
+                <Input
+                  name="title"
+                  placeholder="input placeholder"
+                  onChange={onChange}
+                />
+              )}
             </Form.Item>
             <Form.Item label="Description" {...formItemLayout}>
               {getFieldDecorator("description", {
-                setFieldsValue: description
-              })(<Input placeholder="input placeholder" onChange={onChange} />)}
+                initialValue: description
+              })(
+                <Input
+                  name="description"
+                  placeholder="input placeholder"
+                  onChange={onChange}
+                />
+              )}
             </Form.Item>
             <Form.Item label="Content" {...formItemLayout}>
               {getFieldDecorator("content", {
-                setFieldsValue: content
-              })(<Input placeholder="input placeholder" onChange={onChange} />)}
+                initialValue: content
+              })(
+                <Input
+                  name="content"
+                  placeholder="input placeholder"
+                  onChange={onChange}
+                />
+              )}
             </Form.Item>
             <Form.Item {...buttonItemLayout}>
-              <Button type="primary">Submit</Button>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+
+            <Form.Item {...buttonItemLayout}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={onClick}
+              >
+                Close
+              </Button>
             </Form.Item>
           </Form>
         </div>
@@ -65,23 +88,30 @@ const EditFormComponent = Form.create({ name: "edit_form" })(
 );
 class EditForm extends Component {
   state = {
-    title: this.props.title,
-    description: this.props.description,
-    content: this.props.content
+    title: this.props.task.title,
+    description: this.props.task.description,
+    content: this.props.task.content
   };
 
-  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+  handleChange = e => {
+    console.log(e.target.name);
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.handleEditTask(this.props.id, { ...this.state });
+    this.props.handleEditTask({ id: this.props.task.id, ...this.state });
+    this.props.handleCloseEdit();
   };
 
   render() {
+    const {handleCloseEdit} = this.props
     return (
       <EditFormComponent
+        task={this.props.task}
         onChange={this.handleChange}
         onSubmit={this.handleSubmit}
+        onClick={handleCloseEdit}
       />
     );
   }

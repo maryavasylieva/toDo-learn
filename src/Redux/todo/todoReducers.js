@@ -6,7 +6,7 @@ const tasks = (state = [], { type, payload }) => {
     case Action_Types.GET_TASKS_SUCCESS:
       return payload.tasks === null ? [] : payload.tasks;
     case Action_Types.ADD_TASK_SUCCESS:
-      return payload.task
+      return [...state, payload.task]
     case Action_Types.DELETE_TASK_SUCCESS:
       return state.map(el =>
         el.id === payload.task.id ? { ...el, tasks: payload.task.tasks } : el
@@ -38,10 +38,10 @@ const error = (state = null, { type, payload }) => {
     case Action_Types.DELETE_TASK_ERROR:
       return payload.err;
 
-    // case Action_Types.GET_TASKS_SUCCESS:
-    // case Action_Types.ADD_TASK_SUCCESS:
-    // case Action_Types.DELETE_TASK_SUCCESS:
-    //   return null;
+    case Action_Types.GET_TASKS_SUCCESS:
+    case Action_Types.ADD_TASK_SUCCESS:
+    case Action_Types.DELETE_TASK_SUCCESS:
+      return null;
 
     default:
       return state;

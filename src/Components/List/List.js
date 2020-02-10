@@ -4,6 +4,8 @@ import React from "react";
 import "antd/dist/antd.css";
 import { List, Icon, Select } from "antd";
 import style from "../TodoList/TodoList.module.css";
+import {connect} from 'react-redux'
+import {deleteTaskSuccess} from '../../Redux/todo/todoActions'
 
 const icons = ["delete", "edit", "like-o"];
 const { Option, OptGroup } = Select;
@@ -11,14 +13,15 @@ const { Option, OptGroup } = Select;
 const Lists = ({
   tasks,
   handleDeleteTask,
-  handleEditTask,
+  handleEditForm,
   handlePriorityChange
 }) => {
   const deleteFunc = id => {
     handleDeleteTask(id);
   };
-  const editFunc = task => {
-    handleEditTask(task);
+  const editFunc = id => {
+    const task = tasks.find(el=> el.id === id)
+    handleEditForm(task);
   };
   const likeFunc = id => console.log("likeId", id);
   // const bla = () => console.log("kek");
@@ -78,16 +81,17 @@ const Lists = ({
               // avatar={<Avatar src={i.avatar} />}
               title={task.title}
               description={task.description}
-            />
-            {task.content}
+              />
+              {task.content}
+            {/* {task.date} */}
           </List.Item>
           <List.Item>
             <label>
               Priority:
               <Select
                 name="priority"
-                value={task.priority}
-                onChange={e => handlePriorityChange(task.id)}
+                defaultValue=""
+                onChange={handlePriorityChange}
               >
                 <OptGroup label="Priority">
                   <Option value="Low">Low</Option>
@@ -111,6 +115,9 @@ const IconText = ({ onClick, type, text, id }) => {
     </button>
   );
 };
+
+
+
 
 // const Lists = ({ tasks, handleDeleteTask }) => {
 //   console.log(tasks);

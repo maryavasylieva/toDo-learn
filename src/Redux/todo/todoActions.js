@@ -20,7 +20,7 @@ export const addTaskRequest = () => ({
   type: Action_Types.ADD_TASK_REQUEST
 });
 
-export const addTaskSuccess = task => ({
+export const addTaskSuccess = (task) => ({
   type: Action_Types.ADD_TASK_SUCCESS,
   payload: { task }
 });
@@ -31,16 +31,16 @@ export const addTaskError = err => ({
 });
 
 // delete task
-export const dltTaskRequest = () => ({
+export const deleteTaskRequest = () => ({
   type: Action_Types.DELETE_TASK_REQUEST
 });
 
-export const dltTaskSuccess = id => ({
+export const deleteTaskSuccess = id => ({
   type: Action_Types.DELETE_TASK_SUCCESS,
   payload: { id }
 });
 
-export const dltTaskError = err => ({
+export const deleteTaskError = err => ({
   type: Action_Types.DELETE_TASK_ERROR,
   payload: { err }
 });
@@ -73,4 +73,15 @@ export const editTaskSuccess = id => ({
 export const editTaskError = err => ({
   type: Action_Types.EDIT_TASK_ERROR,
   payload: { err }
+});
+
+// new task modal
+export const modalNewTaskOpen = () => ({
+  type: Action_Types.MODAL_NEWTASK_OPEN,
+  payload: {}
+});
+
+export const modalNewTaskClose = () => ({
+  type: Action_Types.MODAL_NEWTASK_CLOSE,
+  payload: {}
 });

@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import "antd/dist/antd.css";
 import { Button, Modal, Form, Input, Select } from "antd";
+import {
+  addTaskSuccess,
+  modalNewTaskOpen,
+  modalNewTaskClose
+} from "../../Redux/todo/todoActions";
+import { connect } from "react-redux";
 // import style from "../TodoList/TodoList.module.css";
 import styled from "styled-components";
 
@@ -17,7 +23,7 @@ const { Option, OptGroup } = Select;
 export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
   // eslint-disable-next-line
   class extends Component {
-    sate = {
+    state = {
       priority: "low"
     };
     // onChange = e => {
@@ -34,7 +40,7 @@ export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
-      // const { priority } = this.state;
+      const { priority } = this.state;
       return (
         <Modal
           visible={visible}
@@ -62,7 +68,7 @@ export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
             </Form.Item>
             <Form.Item className="collection-create-form_last-form-item">
               {getFieldDecorator("priority", {
-                setFieldsValue: "{ priority }"
+                initialValue: priority
               })(
                 <Select name="priority" onChange={this.onChange}>
                   <OptGroup label="Priority">
@@ -128,4 +134,9 @@ class NewTask extends Component {
   }
 }
 
-export default NewTask;
+const mDTP = dispatch => ({
+  addTask: task => dispatch(addTaskSuccess(task))
+});
+
+export default connect(null, mDTP)(NewTask);
+// export default NewTask;
