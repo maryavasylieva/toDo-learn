@@ -1,12 +1,18 @@
-import Action_Types from "./todoActionTypes";
-import { combineReducers } from "redux";
+import Action_Types from './todoActionTypes';
+import { combineReducers } from 'redux';
 
 const tasks = (state = [], { type, payload }) => {
   switch (type) {
     case Action_Types.GET_TASKS_SUCCESS:
       return payload.tasks === null ? [] : payload.tasks;
     case Action_Types.ADD_TASK_SUCCESS:
-      return [...state, payload.task]
+      return [
+        ...state,
+        {
+          id: payload.id,
+          task: payload.task,
+        },
+      ];
     case Action_Types.DELETE_TASK_SUCCESS:
       return state.map(el =>
         el.id === payload.task.id ? { ...el, tasks: payload.task.tasks } : el,
@@ -16,14 +22,14 @@ const tasks = (state = [], { type, payload }) => {
       return state.map(el =>
         el.id === payload.task.id
           ? { ...el, priority: payload.task.priority }
-          : el
+          : el,
       );
 
     case Action_Types.EDIT_TASK_SUCCESS:
       return state.map(el =>
         el.id === payload.task.id
           ? { ...el, updatedTask: payload.task.updatedTask }
-          : el
+          : el,
       );
 
     default:

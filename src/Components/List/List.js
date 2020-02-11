@@ -18,16 +18,18 @@ const Lists = ({
 
  const [setHidden] = useState(true);
 
-  function showDeleteConfirm(){
+  function showDeleteConfirm(id){
+    console.log(id)
     confirm({
       title: 'Are you sure delete this task?',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        handleDeleteTask();
+        handleDeleteTask(id);
       },
       onCancel() {
+        // ошибка setHidden is not a function
         setHidden(false);
       },
     });
