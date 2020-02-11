@@ -9,7 +9,7 @@ const tasks = (state = [], { type, payload }) => {
       return [...state, payload.task]
     case Action_Types.DELETE_TASK_SUCCESS:
       return state.map(el =>
-        el.id === payload.task.id ? { ...el, tasks: payload.task.tasks } : el
+        el.id === payload.task.id ? { ...el, tasks: payload.task.tasks } : el,
       );
 
     case Action_Types.CHANGE_PRIORITY_SUCCESS:

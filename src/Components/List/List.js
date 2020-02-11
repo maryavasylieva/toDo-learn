@@ -1,30 +1,48 @@
-import React from "react";
-// import { List, Card, Button } from 'antd';
-// import Tasks from '../Tasks/Tasks';
-import "antd/dist/antd.css";
-import { List, Icon, Select } from "antd";
-import style from "../TodoList/TodoList.module.css";
-import {connect} from 'react-redux'
-import {deleteTaskSuccess} from '../../Redux/todo/todoActions'
+import React, { useState } from 'react';
+import 'antd/dist/antd.css';
+import { List, Icon, Select, Modal } from 'antd';
+import style from '../TodoList/TodoList.module.css';
+import { useSelector } from 'react-redux';
 
-const icons = ["delete", "edit", "like-o"];
+const icons = ['delete', 'edit', 'like-o'];
 const { Option, OptGroup } = Select;
+const { confirm } = Modal;
 
 const Lists = ({
-  tasks,
+  // tasks,
   handleDeleteTask,
   handleEditForm,
   handlePriorityChange
 }) => {
+  const tasks = useSelector(state => state.todo.tasks);
+
+ const [setHidden] = useState(true);
+
+  function showDeleteConfirm(){
+    confirm({
+      title: 'Are you sure delete this task?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        handleDeleteTask();
+      },
+      onCancel() {
+        setHidden(false);
+      },
+    });
+  }
+
+
   const deleteFunc = id => {
-    handleDeleteTask(id);
+    showDeleteConfirm(id);
   };
   const editFunc = id => {
     const task = tasks.find(el=> el.id === id)
     handleEditForm(task);
   };
   const likeFunc = id => console.log("likeId", id);
-  // const bla = () => console.log("kek");
+
 
   const typeListener = (type, id) => {
     switch (type) {
@@ -116,33 +134,5 @@ const IconText = ({ onClick, type, text, id }) => {
   );
 };
 
-
-
-
-// const Lists = ({ tasks, handleDeleteTask }) => {
-//   console.log(tasks);
-//   return (
-//     <List
-//       className={style.list}
-//       grid={{ gutter: 16, column: 4 }}
-//       dataSource={tasks}
-//       renderItem={tasks => (
-//         <List.Item>
-//           <Card title={tasks.title}>{tasks.description}</Card>
-//           <Button className={style.button} type='primary'>
-//             edit
-//           </Button>
-//           <Button
-//             className={style.button}
-//             type='primary'
-//             onClick={() => handleDeleteTask(tasks.id)}
-//           >
-//             delete
-//           </Button>
-//         </List.Item>
-//       )}
-//     />
-//   );
-// };
 
 export default Lists;

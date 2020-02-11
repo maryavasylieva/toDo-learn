@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import Lists from "../List/List";
-import EditForm from "../EditForm/EditForm";
+import React, { Component } from 'react';
+import Lists from '../List/List';
+import EditForm from '../EditForm/EditForm';
 
 class ListItem extends Component {
   state = {
     isOpen: false,
-    task: {}
+    task: {},
   };
 
   handleCloseEdit = () => this.setState({ isOpen: false });
@@ -13,6 +13,7 @@ class ListItem extends Component {
   handleEditForm = task => {
     this.setState({ isOpen: true, task });
   };
+
 
   render() {
     const { isOpen, task } = this.state;

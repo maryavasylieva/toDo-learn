@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import "antd/dist/antd.css";
-import { Button, Modal, Form, Input, Select } from "antd";
+import React, { Component } from 'react';
+import 'antd/dist/antd.css';
+import { Button, Modal, Form, Input, Select } from 'antd';
 import {
   addTaskSuccess,
   modalNewTaskOpen,
-  modalNewTaskClose
-} from "../../Redux/todo/todoActions";
-import { connect } from "react-redux";
+  modalNewTaskClose,
+} from '../../Redux/todo/todoActions';
+import { connect } from 'react-redux';
 // import style from "../TodoList/TodoList.module.css";
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const AddBTN = styled(Button)`
   background-color: rgb(80, 56, 138);
@@ -20,27 +20,24 @@ const AddBTN = styled(Button)`
 
 const { Option, OptGroup } = Select;
 
-export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
-  // eslint-disable-next-line
+export const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
   class extends Component {
     state = {
-      priority: "low"
+      priority: 'low',
     };
-    // onChange = e => {
-    //   const { name, value } = e.target;
 
-    //   this.setState({ [name]: value });
-    // };
     onChange = value => {
-      console.log("radio checked", value);
+      console.log('radio checked', value);
       this.setState({
-        value: value
+        value: value,
       });
     };
+
     render() {
       const { visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
       const { priority } = this.state;
+
       return (
         <Modal
           visible={visible}
@@ -51,24 +48,24 @@ export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
         >
           <Form layout="vertical">
             <Form.Item label="Title">
-              {getFieldDecorator("title", {
+              {getFieldDecorator('title', {
                 rules: [
                   {
                     required: true,
-                    message: "Please input the title of your task!"
-                  }
-                ]
+                    message: 'Please input the title of your task!',
+                  },
+                ],
               })(<Input />)}
             </Form.Item>
             <Form.Item label="Description">
-              {getFieldDecorator("description")(<Input type="textarea" />)}
+              {getFieldDecorator('description')(<Input type="textarea" />)}
             </Form.Item>
             <Form.Item label="Content">
-              {getFieldDecorator("content")(<Input type="textarea" />)}
+              {getFieldDecorator('content')(<Input type="textarea" />)}
             </Form.Item>
             <Form.Item className="collection-create-form_last-form-item">
-              {getFieldDecorator("priority", {
-                initialValue: priority
+              {getFieldDecorator('priority', {
+                initialValue: priority,
               })(
                 <Select name="priority" onChange={this.onChange}>
                   <OptGroup label="Priority">
@@ -76,19 +73,19 @@ export const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
                     <Option value="Medium">Medium</Option>
                     <Option value="High">High</Option>
                   </OptGroup>
-                </Select>
+                </Select>,
               )}
             </Form.Item>
           </Form>
         </Modal>
       );
     }
-  }
+  },
 );
 
 class NewTask extends Component {
   state = {
-    visible: false
+    visible: false,
   };
 
   showModal = () => {
@@ -106,7 +103,7 @@ class NewTask extends Component {
         return;
       }
 
-      console.log("Received values of form: ", values);
+      console.log('Received values of form: ', values);
       form.resetFields();
       this.props.addTask(values);
       this.setState({ visible: false });
@@ -135,8 +132,7 @@ class NewTask extends Component {
 }
 
 const mDTP = dispatch => ({
-  addTask: task => dispatch(addTaskSuccess(task))
+  addTask: task => dispatch(addTaskSuccess(task)),
 });
 
 export default connect(null, mDTP)(NewTask);
-// export default NewTask;
