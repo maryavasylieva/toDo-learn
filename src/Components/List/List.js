@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import { List, Icon, Select, Modal } from 'antd';
 import style from '../TodoList/TodoList.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as todoActions from '../../Redux/todo/todoActions';
 
 const icons = ['delete', 'edit', 'like-o'];
 const { Option, OptGroup } = Select;
@@ -10,13 +11,12 @@ const { confirm } = Modal;
 
 const Lists = ({
   // tasks,
-  handleDeleteTask,
   handleEditForm,
   handlePriorityChange
 }) => {
   const tasks = useSelector(state => state.todo.tasks);
 
- const [setHidden] = useState(true);
+  const dispatch = useDispatch();
 
   function showDeleteConfirm(id){
     console.log(id)
@@ -26,12 +26,8 @@ const Lists = ({
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        handleDeleteTask(id);
-      },
-      onCancel() {
-        // ошибка setHidden is not a function
-        setHidden(false);
-      },
+        dispatch(todoActions.deleteTaskSuccess(id))
+      }
     });
   }
 
@@ -39,10 +35,12 @@ const Lists = ({
   const deleteFunc = id => {
     showDeleteConfirm(id);
   };
+
   const editFunc = id => {
     const task = tasks.find(el=> el.id === id)
-    handleEditForm(task);
+    dispatch(todoActions.editTaskSuccess(task));
   };
+
   const likeFunc = id => console.log("likeId", id);
 
 

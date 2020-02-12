@@ -10,13 +10,11 @@ const tasks = (state = [], { type, payload }) => {
         ...state,
         {
           id: payload.id,
-          task: payload.task,
+          ...payload.task
         },
       ];
     case Action_Types.DELETE_TASK_SUCCESS:
-      return state.map(el =>
-        el.id === payload.task.id ? { ...el, tasks: payload.task.tasks } : el,
-      );
+      return [...state.filter(el => el.id !== payload.id)];
 
     case Action_Types.CHANGE_PRIORITY_SUCCESS:
       return state.map(el =>
@@ -26,11 +24,13 @@ const tasks = (state = [], { type, payload }) => {
       );
 
     case Action_Types.EDIT_TASK_SUCCESS:
-      return state.map(el =>
+      return [...state.find(el =>
         el.id === payload.task.id
           ? { ...el, updatedTask: payload.task.updatedTask }
           : el,
-      );
+      )]
+
+
 
     default:
       return state;
