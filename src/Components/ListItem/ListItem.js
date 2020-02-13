@@ -14,7 +14,6 @@ class ListItem extends Component {
     this.setState({ isOpen: true, task });
   };
 
-
   render() {
     const { isOpen, task } = this.state;
     const { handleEditTask } = this.props;
@@ -32,7 +31,6 @@ class ListItem extends Component {
             {...this.props}
             {...this.state}
             handleEditForm={this.handleEditForm}
-
           />
         )}
       </div>

@@ -1,68 +1,71 @@
-import React, { Component } from "react";
-import "antd/dist/antd.css";
-import { Form, Input, Button } from "antd";
+import React, { Component } from 'react';
+import 'antd/dist/antd.css';
+import { Form, Input, Button } from 'antd';
+import { connect } from 'react-redux';
+import { editTaskSuccess } from '../../Redux/todo/todoActions';
 
-const EditFormComponent = Form.create({ name: "edit_form" })(
+const EditFormComponent = Form.create({ name: 'edit_form' })(
   class extends Component {
     state = {
       title: this.props.task.title,
       description: this.props.task.description,
       content: this.props.task.content,
-      formLayout: "horizontal"
+      formLayout: 'horizontal',
     };
 
     render() {
       const { title, description, content, formLayout } = this.state;
-      const { onChange, onSubmit, onClick } = this.props;
+      const { onChange, onUpdate, onClick } = this.props;
+      console.log(this.props)
       const { getFieldDecorator } = this.props.form;
       const formItemLayout =
-        formLayout === "horizontal"
+        formLayout === 'horizontal'
           ? {
               labelCol: { span: 4 },
-              wrapperCol: { span: 14 }
+              wrapperCol: { span: 14 },
             }
           : null;
 
       const buttonItemLayout =
-        formLayout === "horizontal"
+        formLayout === 'horizontal'
           ? {
-              wrapperCol: { span: 14, offset: 4 }
+              wrapperCol: { span: 14, offset: 4 },
             }
           : null;
       return (
         <div>
-          <Form layout={formLayout} onSubmit={onSubmit}>
+          <Form layout={formLayout} onSubmit={onUpdate}>
             <Form.Item label="Title" {...formItemLayout}>
-              {getFieldDecorator("title", {
-                initialValue: title
+              {getFieldDecorator('title', {
+                initialValue: title,
               })(
                 <Input
                   name="title"
                   placeholder="input placeholder"
                   onChange={onChange}
-                />
+                />,
               )}
             </Form.Item>
             <Form.Item label="Description" {...formItemLayout}>
-              {getFieldDecorator("description", {
-                initialValue: description
+              {getFieldDecorator('description', {
+                initialValue: description,
               })(
                 <Input
                   name="description"
                   placeholder="input placeholder"
                   onChange={onChange}
-                />
+                />,
               )}
             </Form.Item>
             <Form.Item label="Content" {...formItemLayout}>
-              {getFieldDecorator("content", {
-                initialValue: content
+              {getFieldDecorator('content', {
+                initialValue: content,
               })(
                 <Input
                   name="content"
                   placeholder="input placeholder"
                   onChange={onChange}
-                />
+                />,
               )}
             </Form.Item>
             <Form.Item {...buttonItemLayout}>
@@ -72,11 +75,7 @@ const EditFormComponent = Form.create({ name: "edit_form" })(
             </Form.Item>
 
             <Form.Item {...buttonItemLayout}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={onClick}
-              >
+              <Button type="primary" htmlType="submit" onClick={onClick}>
                 Close
               </Button>
             </Form.Item>
@@ -84,13 +83,13 @@ const EditFormComponent = Form.create({ name: "edit_form" })(
         </div>
       );
     }
-  }
+  },
 );
 class EditForm extends Component {
   state = {
     title: this.props.task.title,
     description: this.props.task.description,
-    content: this.props.task.content
+    content: this.props.task.content,
   };
 
   handleChange = e => {
@@ -105,16 +104,20 @@ class EditForm extends Component {
   };
 
   render() {
-    const {handleCloseEdit} = this.props
+    const { handleCloseEdit } = this.props;
     return (
       <EditFormComponent
         task={this.props.task}
         onChange={this.handleChange}
-        onSubmit={this.handleSubmit}
+        onUpdate={this.handleSubmit}
         onClick={handleCloseEdit}
       />
     );
   }
 }
 
-export default EditForm;
+const mDTP = dispatch => ({
+  onUpdate: id => dispatch(editTaskSuccess(id))
+});
+
+export default connect(null, mDTP)(EditForm);

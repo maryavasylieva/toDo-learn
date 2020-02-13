@@ -38,7 +38,7 @@ const Lists = ({
 
   const editFunc = id => {
     const task = tasks.find(el=> el.id === id)
-    dispatch(todoActions.editTaskSuccess(task));
+    handleEditForm(task)
   };
 
   const likeFunc = id => console.log("likeId", id);

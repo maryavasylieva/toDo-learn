@@ -24,11 +24,9 @@ const tasks = (state = [], { type, payload }) => {
       );
 
     case Action_Types.EDIT_TASK_SUCCESS:
-      return [...state.find(el =>
-        el.id === payload.task.id
-          ? { ...el, updatedTask: payload.task.updatedTask }
-          : el,
-      )]
+      return state.map(task => {
+        return task.id === payload.id ? { ...task, task: payload.task.tasks } : task;
+      })
 
 
 
