@@ -9,6 +9,7 @@ const AsyncList = lazy(() => import("../../Pages/ListPages"));
 class Root extends Component {
 
 
+
   render() {
     return (
       <div className="Root">
@@ -25,7 +26,6 @@ class Root extends Component {
     );
   }
 }
-
 
 
 export default Root;

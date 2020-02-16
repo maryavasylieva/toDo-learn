@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal, Form, Input, Select } from 'antd';
-import {
-  addTaskSuccess,
-  modalNewTaskOpen,
-  modalNewTaskClose,
-} from '../../Redux/todo/todoActions';
+import { addTodo } from '../../Redux/todo/todoOperations';
 import { connect } from 'react-redux';
 // import style from "../TodoList/TodoList.module.css";
 import styled from 'styled-components';
@@ -131,8 +127,8 @@ class NewTask extends Component {
   }
 }
 
-const mDTP = dispatch => ({
-  addTask: task => dispatch(addTaskSuccess(task)),
-});
+const mDTP = {
+  addTask: addTodo,
+};
 
 export default connect(null, mDTP)(NewTask);

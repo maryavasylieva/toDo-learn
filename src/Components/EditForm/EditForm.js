@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import { editTaskSuccess } from '../../Redux/todo/todoActions';
+import { editTodo } from '../../Redux/todo/todoOperations';
 
 const EditFormComponent = Form.create({ name: 'edit_form' })(
   class extends Component {
@@ -15,8 +15,8 @@ const EditFormComponent = Form.create({ name: 'edit_form' })(
 
     render() {
       const { title, description, content, formLayout } = this.state;
-      const { onChange, onUpdate, onClick } = this.props;
-      console.log(this.props)
+      const { onChange, onSubmit, onClick } = this.props;
+      console.log(this.props);
       const { getFieldDecorator } = this.props.form;
       const formItemLayout =
         formLayout === 'horizontal'
@@ -34,7 +34,7 @@ const EditFormComponent = Form.create({ name: 'edit_form' })(
           : null;
       return (
         <div>
-          <Form layout={formLayout} onSubmit={onUpdate}>
+          <Form layout={formLayout} onSubmit={onSubmit}>
             <Form.Item label="Title" {...formItemLayout}>
               {getFieldDecorator('title', {
                 initialValue: title,
@@ -99,25 +99,26 @@ class EditForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.handleEditTask({ id: this.props.task.id, ...this.state });
+    this.props.onUpdate({ id: this.props.task.id, ...this.state });
     this.props.handleCloseEdit();
   };
 
   render() {
     const { handleCloseEdit } = this.props;
+
     return (
       <EditFormComponent
         task={this.props.task}
         onChange={this.handleChange}
-        onUpdate={this.handleSubmit}
+        onSubmit={this.handleSubmit}
         onClick={handleCloseEdit}
       />
     );
   }
 }
 
-const mDTP = dispatch => ({
-  onUpdate: id => dispatch(editTaskSuccess(id))
-});
+const mDTP = {
+  onUpdate: editTodo,
+};
 
 export default connect(null, mDTP)(EditForm);

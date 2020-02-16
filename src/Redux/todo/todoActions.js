@@ -7,9 +7,9 @@ export const getTaskRequest = () => ({
   type: Action_Types.GET_TASKS_REQUEST
 });
 
-export const getTasksSuccess = tasks => ({
+export const getTasksSuccess = todos => ({
   type: Action_Types.GET_TASKS_SUCCESS,
-  payload: { tasks }
+  payload: { todos }
 });
 
 export const getTasksError = err => ({
@@ -67,9 +67,9 @@ export const editTaskRequest = () => ({
   type: Action_Types.EDIT_TASK_REQUEST
 });
 
-export const editTaskSuccess = id => ({
+export const editTaskSuccess = todo => ({
   type: Action_Types.EDIT_TASK_SUCCESS,
-  payload: { id }
+  payload: { todo }
 });
 
 export const editTaskError = err => ({

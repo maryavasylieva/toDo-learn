@@ -3,7 +3,8 @@ import 'antd/dist/antd.css';
 import { List, Icon, Select, Modal } from 'antd';
 import style from '../TodoList/TodoList.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import * as todoActions from '../../Redux/todo/todoActions';
+// import * as todoActions from '../../Redux/todo/todoActions';
+import {deleteTodo} from '../../Redux/todo/todoOperations'
 
 const icons = ['delete', 'edit', 'like-o'];
 const { Option, OptGroup } = Select;
@@ -15,18 +16,18 @@ const Lists = ({
   handlePriorityChange
 }) => {
   const tasks = useSelector(state => state.todo.tasks);
-
   const dispatch = useDispatch();
 
+
   function showDeleteConfirm(id){
-    console.log(id)
+    // console.log(id)
     confirm({
       title: 'Are you sure delete this task?',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        dispatch(todoActions.deleteTaskSuccess(id))
+        dispatch(deleteTodo(id))
       }
     });
   }
@@ -37,7 +38,7 @@ const Lists = ({
   };
 
   const editFunc = id => {
-    const task = tasks.find(el=> el.id === id)
+    const task = tasks.find(el=> el._id === id)
     handleEditForm(task)
   };
 
@@ -86,7 +87,7 @@ const Lists = ({
         <>
           <List.Item
             key={task.title}
-            actions={renderIcons(task.id)}
+            actions={renderIcons(task._id)}
             extra={
               <img
                 width={272}
@@ -108,7 +109,7 @@ const Lists = ({
               Priority:
               <Select
                 name="priority"
-                defaultValue=""
+                defaultValue="Low"
                 onChange={handlePriorityChange}
               >
                 <OptGroup label="Priority">
