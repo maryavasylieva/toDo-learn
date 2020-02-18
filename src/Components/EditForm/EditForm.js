@@ -16,7 +16,6 @@ const EditFormComponent = Form.create({ name: 'edit_form' })(
     render() {
       const { title, description, content, formLayout } = this.state;
       const { onChange, onSubmit, onClick } = this.props;
-      console.log(this.props);
       const { getFieldDecorator } = this.props.form;
       const formItemLayout =
         formLayout === 'horizontal'
@@ -99,7 +98,7 @@ class EditForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onUpdate({ id: this.props.task.id, ...this.state });
+    this.props.onUpdate({ id: this.props.task._id, ...this.state });
     this.props.handleCloseEdit();
   };
 

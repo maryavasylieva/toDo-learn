@@ -26,8 +26,9 @@ const tasks = (state = [], { type, payload }) => {
       );
 
     case Action_Types.EDIT_TASK_SUCCESS:
+      console.log("payload:", payload)
       return state.map(task => {
-        return task.id === payload.id ? { ...task, ...payload.todo} : task;
+        return task._id === payload._id ? { ...task, ...payload.todo} : task;
       })
 
 

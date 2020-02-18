@@ -39,15 +39,7 @@ class TodoList extends Component {
   //   }));
   // };
 
-  // // CHANGE PRIORITY
-  // handlePriorityChange = priority => {
-  //   console.log('priority:', priority);
-  //   this.setState(state => ({
-  //     tasks: state.tasks.map(task => {
-  //       return task.id === priority.id ? { ...task, priority } : task;
-  //     }),
-  //   }));
-  // };
+
 
   // // EDIT TASK
   // handleEditTask = updatedTask => {
@@ -66,7 +58,6 @@ class TodoList extends Component {
           tasks={tasks}
           handleDeleteTask={this.handleDeleteTask}
           handleEditTask={this.handleEditTask}
-          handlePriorityChange={this.handlePriorityChange}
         />
         <NewTask addTask={this.handleAddTask} />
       </section>

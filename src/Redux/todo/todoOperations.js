@@ -38,11 +38,12 @@ export const addTodo = todo => async dispatch => {
   }
 };
 
-export const editTodo = (id, todo) => async dispatch => {
+export const editTodo = updatedTodo => async dispatch => {
   try {
-    const data = await requestEditTodo(id, todo);
+    const data = await requestEditTodo(updatedTodo);
+    console.log('updatedTodo:', updatedTodo);
     dispatch(todoActions.editTaskSuccess(data.data.updatedTodo));
-    console.log('data:', data);
+    console.log('dispatch:', updatedTodo);
   } catch (e) {
     dispatch(todoActions.editTaskError(e));
     console.log('editTodo:', e);

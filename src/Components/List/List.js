@@ -1,59 +1,66 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { List, Icon, Select, Modal } from 'antd';
+import { List, Icon, Select, Modal, notification } from 'antd';
 import style from '../TodoList/TodoList.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 // import * as todoActions from '../../Redux/todo/todoActions';
-import {deleteTodo} from '../../Redux/todo/todoOperations'
+import { deleteTodo, editTodo } from '../../Redux/todo/todoOperations';
 
 const icons = ['delete', 'edit', 'like-o'];
 const { Option, OptGroup } = Select;
 const { confirm } = Modal;
 
-const Lists = ({
-  // tasks,
-  handleEditForm,
-  handlePriorityChange
-}) => {
+const Lists = ({ handleEditForm }) => {
   const tasks = useSelector(state => state.todo.tasks);
   const dispatch = useDispatch();
 
-
-  function showDeleteConfirm(id){
-    // console.log(id)
+  function showDeleteConfirm(id) {
     confirm({
       title: 'Are you sure delete this task?',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        dispatch(deleteTodo(id))
-      }
+        dispatch(deleteTodo(id));
+        openNotification();
+      },
     });
   }
 
+  const openNotification = () => {
+    notification.open({
+      message: 'Notification Title',
+      description:
+        'Task has been successfully deleted!',
+      icon: <Icon type="smile" style={{ color: '#108ee9' }} />,
+    });
+  };
 
   const deleteFunc = id => {
     showDeleteConfirm(id);
   };
 
   const editFunc = id => {
-    const task = tasks.find(el=> el._id === id)
-    handleEditForm(task)
+    const task = tasks.find(el => el._id === id);
+    handleEditForm(task);
   };
 
-  const likeFunc = id => console.log("likeId", id);
+  const likeFunc = id => console.log('likeId', id);
 
+  const handlePriorityChange = priority => {
+    console.log('priority:', priority);
+    dispatch(editTodo(priority));
+  };
 
   const typeListener = (type, id) => {
     switch (type) {
-      case "edit":
+      case 'edit':
         return editFunc(id);
 
-      case "delete":
+      case 'delete':
         return deleteFunc(id);
 
-      case "like-o":
+      case 'like-o':
         return likeFunc(id);
 
       default:
@@ -65,7 +72,7 @@ const Lists = ({
     return icons.map(icon => (
       <IconText
         onClick={() => typeListener(icon, id)}
-        id={tasks.id}
+        id={tasks._id}
         type={icon}
         key="list-vertical-delete"
       />
@@ -80,7 +87,7 @@ const Lists = ({
         onChange: page => {
           console.log(page);
         },
-        pageSize: 3
+        pageSize: 3,
       }}
       dataSource={tasks}
       renderItem={task => (
@@ -96,21 +103,18 @@ const Lists = ({
               />
             }
           >
-            <List.Item.Meta
-              // avatar={<Avatar src={i.avatar} />}
-              title={task.title}
-              description={task.description}
-              />
-              {task.content}
-            {/* {task.date} */}
+            <List.Item.Meta title={task.title} description={task.description} />
+            {task.content}
           </List.Item>
           <List.Item>
             <label>
               Priority:
               <Select
                 name="priority"
-                defaultValue="Low"
-                onChange={handlePriorityChange}
+                defaultValue={task.priority}
+                onChange={priority =>
+                  handlePriorityChange({ priority, id: task._id })
+                }
               >
                 <OptGroup label="Priority">
                   <Option value="Low">Low</Option>
@@ -134,6 +138,5 @@ const IconText = ({ onClick, type, text, id }) => {
     </button>
   );
 };
-
 
 export default Lists;
